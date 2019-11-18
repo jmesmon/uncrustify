@@ -382,3 +382,6 @@
 10005  empty.cfg                            c/i1270.c
 
 10006  bug_2331.cfg                         c/bug_2331.c
+
+10007  indent-macro-brace-true.cfg          c/indent-macro-brace.c
+10008  indent-macro-brace-false.cfg         c/indent-macro-brace.c
