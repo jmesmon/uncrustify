@@ -141,11 +141,13 @@ else()
   add_custom_target(generate_version_header
     ${CMAKE_COMMAND}
     -D PYTHON_EXECUTABLE:STRING=${PYTHON_EXECUTABLE}
-    -D SOURCE_DIR:PATH="${PROJECT_SOURCE_DIR}"
-    -D INPUT:PATH="${PROJECT_SOURCE_DIR}/src/uncrustify_version.h.in"
-    -D OUTPUT:PATH="${PROJECT_BINARY_DIR}/uncrustify_version.h"
-    -D UNCRUSTIFY_VERSION:STRING="${UNCRUSTIFY_VERSION}"
+    -D SOURCE_DIR:PATH=${PROJECT_SOURCE_DIR}
+    -D INPUT:PATH=${PROJECT_SOURCE_DIR}/src/uncrustify_version.h.in
+    -D OUTPUT:PATH=${PROJECT_BINARY_DIR}/uncrustify_version.h
+    -D CURRENT_VERSION:STRING=${UNCRUSTIFY_VERSION}
     -P ${PROJECT_SOURCE_DIR}/cmake/GenerateVersionHeader.cmake
+    VERBATIM
+    BYPRODUCTS "${CMAKE_CURRENT_BINARY_DIR}/uncrustify_version.h"
     COMMENT "Generating version header"
   )
   set_source_files_properties(
