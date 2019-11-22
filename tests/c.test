@@ -382,3 +382,8 @@
 10005  empty.cfg                            c/i1270.c
 
 10006  bug_2331.cfg                         c/bug_2331.c
+
+10020  indent_func_param-always.cfg	    c/indent_func_param.c
+10021  indent_func_param-continue.cfg       c/indent_func_param.c
+10022  indent_func_param_exclude_continue-old.cfg c/func-decl.c
+10023  indent_func_param_exclude_continue-new.cfg c/func-decl.c

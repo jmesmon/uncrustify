@@ -2163,31 +2163,38 @@ void indent_text(void)
             // Skip any continuation indents
             size_t idx = (!frm.empty()) ? frm.size() - 2 : 0;
 
-            while (  (  (  idx > 0
-                        && frm.at(idx).type != CT_BRACE_OPEN
-                        && frm.at(idx).type != CT_VBRACE_OPEN
-                        && frm.at(idx).type != CT_PAREN_OPEN
-                        && frm.at(idx).type != CT_FPAREN_OPEN
-                        && frm.at(idx).type != CT_SPAREN_OPEN
-                        && frm.at(idx).type != CT_SQUARE_OPEN
-                        && frm.at(idx).type != CT_ANGLE_OPEN
-                        && frm.at(idx).type != CT_CASE
-                        && frm.at(idx).type != CT_MEMBER
-                        && frm.at(idx).type != CT_LAMBDA
-                        && frm.at(idx).type != CT_ASSIGN_NL)
-                     || are_chunks_in_same_line(frm.at(idx).pc, frm.top().pc))
-                  && (  frm.at(idx).type != CT_CLASS_COLON
-                     && frm.at(idx).type != CT_CONSTR_COLON
-                     && !(frm.at(idx).type == CT_LAMBDA && chunk_get_prev_nc(frm.at(idx).pc)->type == CT_NEWLINE)))
+            if (options::indent_func_param_exclude_continue())
             {
-               if (idx == 0)
+               while (  (  (  idx > 0
+                           && frm.at(idx).type != CT_BRACE_OPEN
+                           && frm.at(idx).type != CT_VBRACE_OPEN
+                           && frm.at(idx).type != CT_PAREN_OPEN
+                           && frm.at(idx).type != CT_FPAREN_OPEN
+                           && frm.at(idx).type != CT_SPAREN_OPEN
+                           && frm.at(idx).type != CT_SQUARE_OPEN
+                           && frm.at(idx).type != CT_ANGLE_OPEN
+                           && frm.at(idx).type != CT_CASE
+                           && frm.at(idx).type != CT_MEMBER
+                           && frm.at(idx).type != CT_LAMBDA
+                           && frm.at(idx).type != CT_ASSIGN_NL)
+                        || are_chunks_in_same_line(frm.at(idx).pc, frm.top().pc))
+                     && (  frm.at(idx).type != CT_CLASS_COLON
+                        && frm.at(idx).type != CT_CONSTR_COLON
+                        && !(frm.at(idx).type == CT_LAMBDA && chunk_get_prev_nc(frm.at(idx).pc)->type == CT_NEWLINE)))
                {
-                  fprintf(stderr, "%s(%d): idx is ZERO, cannot be decremented, at line %zu, column %zu\n",
-                          __func__, __LINE__, pc->orig_line, pc->orig_col);
-                  log_flush(true);
-                  exit(EX_SOFTWARE);
+                  if (idx == 0)
+                  {
+                     fprintf(stderr, "%s(%d): idx is ZERO, cannot be decremented, at line %zu, column %zu\n",
+                             __func__, __LINE__, pc->orig_line, pc->orig_col);
+                     log_flush(true);
+                     exit(EX_SOFTWARE);
+                  }
+                  idx--;
+                  skipped = true;
                }
-               idx--;
+            }
+            else
+            {
                skipped = true;
             }
 
