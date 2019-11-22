@@ -392,3 +392,8 @@
 
 10013  indent_compound_literal_return-false.cfg c/return-compound-literal.c
 10014  indent_compound_literal_return-true.cfg c/return-compound-literal.c
+
+10020  indent_func_param-always.cfg	    c/indent_func_param.c
+10021  indent_func_param-continue.cfg       c/indent_func_param.c
+10022  indent_func_param_exclude_continue-old.cfg c/func-decl.c
+10023  indent_func_param_exclude_continue-new.cfg c/func-decl.c

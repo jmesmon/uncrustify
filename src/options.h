@@ -1165,6 +1165,13 @@ indent_single_newlines;
 extern BoundedOption<unsigned, 0, 16>
 indent_param;
 
+// Control the effect of `indent_param` and `indent_func_*_param`.
+//
+// true:  sometimes apply the continue indent _instead_ of the param indent
+// false: always apply the param indent
+extern Option<bool>
+indent_func_param_exclude_continue; // = true
+
 // How to use tabs when indenting code.
 //
 // 0: Spaces only
