@@ -2148,6 +2148,8 @@ void indent_text(void)
          }
          bool skipped = false;
 
+         LOG_FMT(LINDENT, "%s(%d): paren indent: pc %s, parent_type = %s\n",
+               __func__, __LINE__, get_token_name(pc->type), get_token_name(pc->parent_type));
          if (  (chunk_is_token(pc, CT_FPAREN_OPEN) || chunk_is_token(pc, CT_ANGLE_OPEN))
             && (  (  options::indent_func_call_param()
                   && (  pc->parent_type == CT_FUNC_CALL
@@ -2169,6 +2171,7 @@ void indent_text(void)
                   && options::indent_func_def_param_paren_pos_threshold() > 0
                   && pc->orig_col > options::indent_func_def_param_paren_pos_threshold())))
          {
+            LOG_FMT(LINDENT, "%s(%d): paren indent2\n", __func__, __LINE__);
             // Skip any continuation indents
             size_t idx = (!frm.empty()) ? frm.size() - 2 : 0;
 
@@ -2203,6 +2206,7 @@ void indent_text(void)
             // PR#381
             if (options::indent_param() != 0)
             {
+               LOG_FMT(LINDENT, "%s(%d): indent_param\n", __func__, __LINE__);
                frm.top().indent = frm.at(idx).indent + options::indent_param();
                log_indent();
             }

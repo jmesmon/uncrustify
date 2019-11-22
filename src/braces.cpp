@@ -784,6 +784,12 @@ static void convert_brace(chunk_t *br)
                brace = chunk_get_prev_type(br, CT_BRACE_OPEN, br->level);
             }
          }
+	 else
+	 {
+		 fprintf(stderr, "%s(%d): failed to set brace\n",
+				 __func__, __LINE__);
+		 exit(EX_SOFTWARE);
+	 }
 
          if (  chunk_is_token(br, CT_VBRACE_OPEN)
             || (  chunk_is_token(br, CT_VBRACE_CLOSE)
